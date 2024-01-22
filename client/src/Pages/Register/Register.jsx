@@ -18,7 +18,7 @@ const Register = () => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
-    const photo = form.photo.value;
+    const role = form.role.value;
     const email = form.email.value;
     const password = form.password.value;
 
@@ -27,7 +27,7 @@ const Register = () => {
       .then(() => {
         updateProfile(auth.currentUser, {
           displayName: name,
-          photoURL: photo,
+          photoURL: null,
         })
           .then(() => {
 
@@ -35,28 +35,29 @@ const Register = () => {
             const userInfo = {
               name: name,
               email: email,
-              photo: photo,
+              role: role,
             }
-            navigate('/')
+            console.log(userInfo);
+            // navigate('/')
 
             // Post user into database
-            // axiosPublic.post('/users',userInfo)
-            // .then(res => {
-            //   console.log(res.data);
-            //   if(res.data){
-            //     Swal.fire({
-            //       position: "top-end",
-            //       icon: "success",
-            //       title: "User Created Successfully",
-            //       showConfirmButton: false,
-            //       timer: 2000
-            //     });
-            //     navigate('/')
-            //   }
-            // })
-            // .catch(err => {
-            //   console.log(err);
-            // })
+            axiosPublic.post('/users',userInfo)
+            .then(res => {
+              console.log(res.data);
+              if(res.data){
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User Created Successfully",
+                  showConfirmButton: false,
+                  timer: 2000
+                });
+                navigate('/')
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            })
           })
           .catch((err) => toast.error(err.message));
       })
@@ -64,12 +65,12 @@ const Register = () => {
   };
 
   return (
-    <div  data-aos="fade-up" className="flex items-center justify-center bg-sky-200 py-10">
+    <div  data-aos="fade-up" className=" lg:flex  items-center justify-center bg-sky-200 lg:py-10">
       <Helmet>
         <title>Register | Grandeur Home</title>
       </Helmet>
-      <div className="w-full  flex justify-center items-center">
-        <div className="p-5 md:p-10 rounded-lg w-3/4 mx-auto bg-base-100">
+      <div className="w-full flex justify-center items-center">
+        <div className="p-5 md:p-10 lg:rounded-lg w-full lg:w-3/4 mx-auto bg-base-100">
           <h2 className="text-3xl md:text-4xl font-bold text-center pb-8">
             Register Now
           </h2>
@@ -85,17 +86,7 @@ const Register = () => {
                 placeholder="Type Name..."
               />
             </div>
-            <div className="form-control ">
-              <label>
-                <span className="text-xl font-medium">Photo URL</span>
-              </label>
-              <input
-                type="text"
-                name="photo"
-                className="input input-bordered my-2"
-                placeholder="Photo URL..."
-              />
-            </div>
+            
             <div className="form-control ">
               <label>
                 <span className="text-xl font-medium">Email</span>
@@ -106,6 +97,21 @@ const Register = () => {
                 className="input input-bordered my-2"
                 placeholder="Type Email..."
               />
+            </div>
+            <div className="form-control ">
+              <label>
+                <span className="text-xl font-medium">Select Role</span>
+              </label>
+              <select name="role" className="input input-bordered my-2" defaultValue={'renter'}>
+                <option value="owner">House Owner</option>
+                <option value="renter">House Renter</option>
+              </select>
+              {/* <input
+                type="text"
+                name="photo"
+                className="input input-bordered my-2"
+                placeholder="Photo URL..."
+              /> */}
             </div>
             <div className="form-control">
               <label>
@@ -140,9 +146,9 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <div className=" w-3/4 lg:pr-14">
+      <div className="w-full lg:w-3/4 lg:pr-14">
         <img
-          className="w-full p-5"
+          className="w-full"
           src="https://i.ibb.co/6HS80CK/istockphoto-1312423123-612x612.jpg"
           alt=""
         />
