@@ -19,6 +19,7 @@ const Register = () => {
     const form = e.target;
     const name = form.name.value;
     const role = form.role.value;
+    const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
 
@@ -27,7 +28,7 @@ const Register = () => {
       .then(() => {
         updateProfile(auth.currentUser, {
           displayName: name,
-          photoURL: null,
+          photoURL: photo,
         })
           .then(() => {
 
@@ -36,6 +37,7 @@ const Register = () => {
               name: name,
               email: email,
               role: role,
+              photo:photo
             }
             console.log(userInfo);
             // navigate('/')
@@ -106,12 +108,18 @@ const Register = () => {
                 <option value="owner">House Owner</option>
                 <option value="renter">House Renter</option>
               </select>
-              {/* <input
+              
+            </div>
+            <div className="form-control ">
+              <label>
+                <span className="text-xl font-medium">Photo URL</span>
+              </label>
+              <input
                 type="text"
                 name="photo"
                 className="input input-bordered my-2"
                 placeholder="Photo URL..."
-              /> */}
+              />
             </div>
             <div className="form-control">
               <label>

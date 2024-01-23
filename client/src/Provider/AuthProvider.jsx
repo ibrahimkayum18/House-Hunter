@@ -43,19 +43,19 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      // if(user){
-      //   const userInfo = {email: user.email}
-      //   axiosPublic.post('/jwt', userInfo)
-      //   .then(res => {
-      //     // console.log(res.data);
-      //     if(res.data.token){
-      //       // console.log(res.data.token);
-      //       localStorage.setItem('token', res.data.token)
-      //     }
-      //   })
-      // }else{
-      //   localStorage.removeItem('token')
-      // }
+      if(user){
+        const userInfo = {email: user.email}
+        axiosPublic.post('/jwt', userInfo)
+        .then(res => {
+          // console.log(res.data);
+          if(res.data.token){
+            // console.log(res.data.token);
+            localStorage.setItem('token', res.data.token)
+          }
+        })
+      }else{
+        localStorage.removeItem('token')
+      }
       setLoading(false);
     });
     return () => {
