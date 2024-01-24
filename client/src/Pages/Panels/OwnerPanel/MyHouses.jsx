@@ -14,7 +14,7 @@ const MyHouses = () => {
   const { user } = useAuth();
   useEffect(() => {
     const filter = houses.filter((item) => item.email == user.email);
-    setMyHouses(filter.length);
+    setMyHouses(filter);
   }, [houses, user.email]);
   if(isLoading){
     return <h2>Loading...</h2>
@@ -52,7 +52,7 @@ const MyHouses = () => {
       </h2>
       <div className="divider"></div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5  ">
-        {houses.map((item) => (
+        {myHouses.map((item) => (
           <div key={item._id} className="bg-white rounded-md">
             <img
               src={item.picture}
